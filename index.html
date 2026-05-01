@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TarekPix Pro</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* 🌌 BACKGROUND */
+    body {
+      min-height: 100vh;
+      color: white;
+      background: #020617;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -3;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, #3b82f6, transparent 60%);
+      filter: blur(120px);
+      top: -200px;
+      left: -200px;
+      z-index: -2;
+      animation: floatBg 20s infinite alternate;
+    }
+
+    @keyframes floatBg {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(200px,100px); }
+    }
+
+    /* NAVBAR */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      backdrop-filter: blur(15px);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .toggle {
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .toggle:hover {
+      transform: rotate(20deg);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LOGIN */
+    .login-box {
+      width: 300px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      transition: 0.3s;
+    }
+
+    .login-box:hover {
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    /* UPLOAD */
+    .upload-box {
+      width: 400px;
+      margin: 30px auto;
+      padding: 25px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 0 40px rgba(0,0,0,0.5);
+      transition: 0.3s;
+    }
+
+    .upload-box:hover {
+      transform: translateY(-5px);
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 10px #3b82f6;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(90deg, #3b82f6, #6366f1);
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #3b82f6;
+    }
+
+    /* GALLERY */
+    .gallery {
+      padding: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(20px);
+      transition: 0.4s;
+      animation: floatCard 6s ease-in-out infinite;
+    }
+
+    .card:nth-child(even) {
+      animation-delay: 2s;
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 0 30px rgba(59,130,246,0.5);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      transition: 0.4s;
+    }
+
+    .card:hover img {
+      transform: scale(1.1);
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    }
+
+    .like {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      padding: 6px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .like:hover {
+      transform: scale(1.2);
+    }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed;
+      display: none;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.95);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); }
+      to { transform: scale(1); }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <h2>🚀 TarekPix</h2>
+  <div style="display: flex; gap: 15px; align-items: center;">
+    <div id="nav-login-btn" onclick="showLogin()" style="cursor: pointer; background: rgba(255,255,255,0.1); padding: 5px 15px; border-radius: 5px;">Login</div>
+    <div id="nav-logout-btn" onclick="logout()" style="cursor: pointer; background: #ef4444; padding: 5px 15px; border-radius: 5px; display: none;">Logout</div>
+    <div class="toggle" onclick="toggleMode()">🌗</div>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Modern Image Platform</h1>
+</div>
+
+<div class="login-box" id="login-box" style="display: none;">
+  <input id="login-email" placeholder="Email">
+  <input id="login-password" placeholder="Password" type="password">
+  <button onclick="login()">Login</button>
+  <button onclick="showHome()" style="background: rgba(255,255,255,0.1); margin-top: 10px;">Cancel</button>
+</div>
+
+<div class="upload-box" id="upload-box" style="display: none;">
+  <input id="title" placeholder="Title">
+  <input id="category" placeholder="Category">
+  <input type="file" id="image">
+  <button onclick="uploadImage()">Upload</button>
+</div>
+
+<div class="gallery" id="gallery"></div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <img id="lightbox-img">
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

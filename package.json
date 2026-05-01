@@ -1,0 +1,12 @@
+{
+  "name": "tarek-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for TarekPix",
+  "main": "app.js",
+  "scripts": {
+    "build": "echo 'No build step required'",
+    "start": "echo 'Serving static files' && npx serve ."
+  },
+  "author": "",
+  "license": "ISC"
+}
